@@ -1,0 +1,57 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: script
+  labels:
+    app: k6
+data:
+  script.js: |-
+    import http from 'k6/http';
+    export default function () {
+      http.get("http://example:80");
+    }
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6
+  labels:
+    app: k6
+spec:
+  backoffLimit: 4
+  ttlSecondsAfterFinished: 600
+  template:
+    metadata:
+      name: k6
+      labels:
+        app: k6
+      annotations:
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+      - name: k6
+        args:
+        - "run"
+        - "--duration"
+        - "60s"
+        - "--vus"
+        - "5000"
+        - "/opt/k6/script.js"
+        image: loadimpact/k6
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /tmpfs
+          name: tempfs
+        - name: script
+          mountPath: /opt/k6/
+      restartPolicy: Never
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: tempfs
+      - name: script
+        projected:
+          sources:
+            - configMap:
+                name: script
