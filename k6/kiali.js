@@ -15,6 +15,7 @@ export const options = {
     },
   },
 }
+
 export default async function () {
   const page = browser.newPage();
   try {
