@@ -1,0 +1,23 @@
+namespace: openshift-marketplace
+path: artifactory.apps.mirror.sandbox658.opentlc.com/caas-ocp4/olm-4.12/extras
+
+catalogs:
+
+  servicemesh-v2-4-4:
+    packages:
+      jaeger-product:
+        channel: stable
+        namespace: openshift-operators
+
+#      kiali-ossm:
+#        channel: stable
+#        namespace: openshift-operators
+#      jaeger-product:
+#        channel: stable
+#        namespace: openshift-operators
+
+  oadp-v1-2-2:
+    packages:
+      redhat-oadp-operator:
+        channel: stable-1.2
+        namespace: openshift-adp

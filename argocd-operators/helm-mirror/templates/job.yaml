@@ -1,0 +1,38 @@
+{{- range $key, $val := $.Values.catalogs }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-26"
+  name: oc-mirror-{{ $key }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  template:
+    spec:
+      serviceAccountName: oc-mirror
+      containers:
+      - name: container
+        image: {{ $.Values.image }}
+        securityContext:
+          runAsUser: 0
+        command:
+          - "/bin/sh"
+          - "-c"
+          - |
+            ./oc-mirror --config=/tmp/config/imagesetconfiguration.yaml docker://{{ $.Values.path }}/registry.redhat.io --dest-skip-tls=true
+            skopeo copy docker://{{ $.Values.path }}/{{ $.Values.catalog }} docker://{{ $.Values.path }}/registry.redhat.io/redhat/{{ $key }}:latest --tls-verify=false
+        volumeMounts:
+        - name: imageset-config
+          mountPath: /tmp/config
+        - name: docker-config
+          mountPath: /root/.docker/
+      restartPolicy: Never
+      volumes:
+      - name: imageset-config
+        configMap:
+          name: oc-mirror-{{ $key }}
+      - name: docker-config
+        secret:
+          secretName: pullsecret
+{{- end }}

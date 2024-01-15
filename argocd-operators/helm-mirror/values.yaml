@@ -1,0 +1,54 @@
+namespace: paas-mirror
+image: quay.io/frodrigu/mirror:v4.12
+catalog: registry.redhat.io/redhat/redhat-operator-index:v4.12
+ocMirror: https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.12.9/oc-mirror.tar.gz
+path: artifactory.apps.mirror.sandbox658.opentlc.com/caas-ocp4/olm-4.12/extras
+
+catalogs:
+
+  servicemesh-v2-2-3:
+    packages:
+      servicemeshoperator:
+        channel: stable
+        version: 2.2.3-0
+      kiali-ossm:
+        channel: stable
+        version: 1.48.3
+      jaeger-product:
+        channel: stable
+        version: 1.47.1-5
+
+  servicemesh-v2-4-4:
+    packages:
+      servicemeshoperator:
+        channel: stable
+        version: 2.4.4-0
+      jaeger-product:
+        channel: stable
+        version: 1.47.1-5
+
+  oadp-v1-2-2:
+    packages:
+      redhat-oadp-operator:
+        channel: stable-1.2
+        version: 1.2.2
+
+#  servicemesh-v2-4-4:
+#    packages:
+#      servicemeshoperator:
+#        channel: stable
+#        version: v2.4.4
+#      kiali-ossm:
+#        channel: stable
+#        version: v1.65.9
+#      jaeger-product:
+#        channel: stable
+#        version: v1.47.0
+
+
+
+#  paas-gitops-v1.10.0:
+#    packages:
+#      openshift-gitops-operator:
+#        channel: latest
+#        version: v1.10.0

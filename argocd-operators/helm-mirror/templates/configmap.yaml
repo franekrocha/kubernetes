@@ -1,0 +1,25 @@
+{{- range $key, $val := $.Values.catalogs }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-27"
+  name: oc-mirror-{{ $key }}
+  namespace: {{ $.Values.namespace }}
+data:
+  imagesetconfiguration.yaml: |
+    kind: ImageSetConfiguration
+    apiVersion: mirror.openshift.io/v1alpha2
+    mirror:
+      operators:
+      - catalog: "{{ $.Values.catalog }}"
+        packages:
+        {{- range $package, $values := $val.packages }}
+        - name: {{ $package }}
+          channels:
+          - name: {{ $values.channel }}
+            minVersion: {{ $values.version }}
+            maxVersion: {{ $values.version }}
+        {{- end }}
+{{- end }}
