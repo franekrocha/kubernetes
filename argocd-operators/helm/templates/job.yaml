@@ -10,7 +10,6 @@ metadata:
 spec:
   template:
     spec:
-      serviceAccountName: oc-mirror
       containers:
       - name: container
         image: {{ $.Values.jobImage }}
