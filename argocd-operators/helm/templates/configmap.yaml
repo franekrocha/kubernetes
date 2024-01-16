@@ -13,7 +13,7 @@ data:
     apiVersion: mirror.openshift.io/v1alpha2
     mirror:
       operators:
-      - catalog: "{{ $.Values.catalog }}"
+      - catalog: "{{ $val.catalog }}"
         packages:
         {{- range $package, $values := $val.packages }}
         - name: {{ $package }}

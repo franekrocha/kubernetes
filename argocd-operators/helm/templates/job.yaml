@@ -14,13 +14,18 @@ spec:
       containers:
       - name: container
         image: {{ $.Values.image }}
-        securityContext:
-          runAsUser: 0
         command:
           - "/bin/sh"
           - "-c"
           - |
+            cd /tmp
+            # Download oc-mirror plugin
+            wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/oc-mirror.tar.gz
+            tar xvzf oc-mirror.tar.gz
+            chmod +x
+            # Run the mirroring process
             ./oc-mirror --config=/tmp/config/imagesetconfiguration.yaml docker://{{ $.Values.path }}/registry.redhat.io --dest-skip-tls=true
+            # Rename the index image
             skopeo copy docker://{{ $.Values.path }}/{{ $.Values.catalog }} docker://{{ $.Values.path }}/registry.redhat.io/redhat/{{ $key }}:latest --tls-verify=false
         volumeMounts:
         - name: imageset-config
@@ -34,5 +39,5 @@ spec:
           name: oc-mirror-{{ $key }}
       - name: docker-config
         secret:
-          secretName: pullsecret
+          secretName: pull-secret
 {{- end }}

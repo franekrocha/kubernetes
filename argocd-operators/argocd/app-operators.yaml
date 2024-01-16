@@ -1,7 +1,7 @@
-apiVersion: argoproj.io/v1alpha1
+lapiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: module-mirror            
+  name: helm-operators
   namespace: openshift-gitops
 spec:
   destination:
@@ -9,5 +9,5 @@ spec:
   project: default
   source:
     path: .
-    repoURL: https://github.com/franekrocha/module-mirror
+    repoURL: https://github.com/franekrocha/kubernetes/argocd-operators/helm-operators
     targetRevision: HEAD
