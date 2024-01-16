@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: operators
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/franekrocha/kubernetes.git'
+    path: argocd-operators/helm
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: oc-mirror
