@@ -1,11 +1,11 @@
-{{- range $key, $val := $.Values.catalogs }}
+{{- range $cat, $catval := $.Values.catalogs }}
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "-26"
-  name: oc-mirror-{{ $key }}
+    argocd.argoproj.io/sync-wave: "-29"
+  name: oc-mirror-{{ $cat }}
   namespace: {{ $.Values.namespace }}
 spec:
   template:
@@ -13,20 +13,20 @@ spec:
       serviceAccountName: oc-mirror
       containers:
       - name: container
-        image: {{ $.Values.image }}
+        image: {{ $.Values.jobImage }}
         command:
           - "/bin/sh"
           - "-c"
           - |
             cd /tmp
             # Download oc-mirror plugin
-            wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/oc-mirror.tar.gz
+            wget {{ $.Values.ocMirror }}
             tar xvzf oc-mirror.tar.gz
-            chmod +x
+            chmod +x oc-mirror
             # Run the mirroring process
-            ./oc-mirror --config=/tmp/config/imagesetconfiguration.yaml docker://{{ $.Values.path }}/registry.redhat.io --dest-skip-tls=true
+            ./oc-mirror --config=/tmp/config/imagesetconfiguration.yaml docker://{{ $.Values.privateRegistry }} --dest-skip-tls=true
             # Rename the index image
-            skopeo copy docker://{{ $.Values.path }}/{{ $.Values.catalog }} docker://{{ $.Values.path }}/registry.redhat.io/redhat/{{ $key }}:latest --tls-verify=false
+            skopeo copy docker://{{ $.Values.privateRegistry }}/redhat/{{ $catval.catalog }} docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}} --tls-verify=false
         volumeMounts:
         - name: imageset-config
           mountPath: /tmp/config
@@ -36,7 +36,7 @@ spec:
       volumes:
       - name: imageset-config
         configMap:
-          name: oc-mirror-{{ $key }}
+          name: oc-mirror-{{ $cat }}
       - name: docker-config
         secret:
           secretName: pull-secret

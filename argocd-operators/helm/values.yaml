@@ -1,42 +1,55 @@
-namespace: oc-mirror
+# General
 version: v4.14
-image: registry.redhat.io/ubi9/skopeo:9.3-5
-catalog: registry.redhat.io/redhat/redhat-operator-index:v4.12
-registry: 
+namespace: oc-mirror
+catalogNamespace: openshift-marketplace
 
+# Job image
+jobImage: registry.redhat.io/ubi9/skopeo:9.3-5
+ocMirror: https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/oc-mirror.tar.gz
 
+# Registries
+redhatRegistry: registry.redhat.io/redhat
+privateRegistry: registry-quay-quay.apps.gitops.sandbox1568.opentlc.com/operators/v4.14
 
+# Custom catalogs
 catalogs:
 
   servicemesh-v2-2-3:
     catalog: redhat-operator-index
     packages:
       servicemeshoperator:
+        namespace: openshift-operators
         channel: stable
         version: 2.2.3-0
       kiali-ossm:
+        namespace: openshift-operators
         channel: stable
         version: 1.57.7
       jaeger-product:
+        namespace: openshift-operators
         channel: stable
         version: 1.47.1-5
 
-  servicemesh-v2-4-4:
-    catalog: redhat-operator-index
-    packages:
-      servicemeshoperator:
-        channel: stable
-        version: 2.4.4-0
-      kiali-ossm:
-        channel: stable
-        version: 1.65.10
-      jaeger-product:
-        channel: stable
-        version: 1.47.1-5
+#  servicemesh-v2-4-4:
+#    catalog: redhat-operator-index
+#    packages:
+#      servicemeshoperator:
+#        namespace: openshift-operators
+#        channel: stable
+#        version: 2.4.4-0
+#      kiali-ossm:
+#        namespace: openshift-operators
+#        channel: stable
+#        version: 1.65.10
+#      jaeger-product:
+#        namespace: openshift-operators
+#        channel: stable
+#        version: 1.47.1-5
 
   oadp-v1-2-2:
     packages:
       redhat-oadp-operator:
+        namespace: openshift-operators
         channel: stable-1.2
         version: 1.2.2
 

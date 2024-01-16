@@ -1,11 +1,11 @@
-{{- range $key, $val := $.Values.catalogs }}
+{{- range $cat, $catval := $.Values.catalogs }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "-27"
-  name: oc-mirror-{{ $key }}
+    argocd.argoproj.io/sync-wave: "-30"
+  name: oc-mirror-{{ $cat }}
   namespace: {{ $.Values.namespace }}
 data:
   imagesetconfiguration.yaml: |
@@ -13,13 +13,13 @@ data:
     apiVersion: mirror.openshift.io/v1alpha2
     mirror:
       operators:
-      - catalog: "{{ $val.catalog }}"
+      - catalog: {{ $.Values.redhatRegistry }}/{{ $catval.catalog }}
         packages:
-        {{- range $package, $values := $val.packages }}
-        - name: {{ $package }}
+        {{- range $pac, $pacval := $catval.packages }}
+        - name: {{ $pac }}
           channels:
-          - name: {{ $values.channel }}
-            minVersion: {{ $values.version }}
-            maxVersion: {{ $values.version }}
+          - name: {{ $pacval.channel }}
+            minVersion: {{ $pacval.version }}
+            maxVersion: {{ $pacval.version }}
         {{- end }}
 {{- end }}
