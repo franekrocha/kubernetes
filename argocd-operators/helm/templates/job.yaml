@@ -31,7 +31,7 @@ spec:
           - |
             cd /tmp
             # Check if catalog exists
-            if skopeo inspect --tls-verify=false docker://docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}}; then
+            if skopeo inspect --tls-verify=false docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}}; then
             echo "info: The catalog {{ $cat }} has already been mirrored, nothing to do"
             else
             # Download oc-mirror plugin
