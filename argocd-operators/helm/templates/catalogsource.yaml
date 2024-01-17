@@ -4,7 +4,7 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "28"
+    argocd.argoproj.io/sync-wave: "-28"
   name: {{ $cat }}
   namespace: {{ $.Values.catalogNamespace }}
 spec:
