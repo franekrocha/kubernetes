@@ -11,7 +11,7 @@ metadata:
 spec:
   channel: {{ $pacval.channel }}
   installPlanApproval: Automatic
-  name: {{ $pacval.package }}
+  name: {{ $pac }}
   source: {{ $cat }}
   sourceNamespace: {{ $.Values.catalogNamespace }}
 {{- end }}

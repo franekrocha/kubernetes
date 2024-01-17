@@ -30,6 +30,10 @@ spec:
           - "-c"
           - |
             cd /tmp
+            # Check if catalog exists
+            if skopeo inspect --tls-verify=false docker://docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}}; then
+            echo "info: The catalog {{ $cat }} has already been mirrored, nothing to do"
+            else
             # Download oc-mirror plugin
             curl -O {{ $.Values.ocMirror }}
             tar xvzf oc-mirror.tar.gz
@@ -38,6 +42,7 @@ spec:
             ./oc-mirror --config=/tmp/config/imagesetconfiguration.yaml docker://{{ $.Values.privateRegistry }} --dest-skip-tls=true
             # Tag the index image
             skopeo copy docker://{{ $.Values.privateRegistry }}/redhat/{{ $catval.catalog }}:{{ $.Values.version }} docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}} --src-tls-verify=false --dest-tls-verify=false
+            fi
         volumeMounts:
         - name: imageset-config
           mountPath: /tmp/config
