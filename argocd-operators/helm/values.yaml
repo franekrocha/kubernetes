@@ -33,7 +33,7 @@ catalogs:
       jaeger-product:
         namespace: openshift-operators
         channel: stable
-        version: 1.47.1-5
+        version: 1.34.1-5
 
   # servicemesh-v2-4-4:
   #   catalog: redhat-operator-index
