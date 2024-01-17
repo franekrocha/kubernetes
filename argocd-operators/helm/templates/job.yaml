@@ -19,7 +19,7 @@ spec:
           - |
             cd /tmp
             # Download oc-mirror plugin
-            wget {{ $.Values.ocMirror }}
+            curl -O {{ $.Values.ocMirror }}
             tar xvzf oc-mirror.tar.gz
             chmod +x oc-mirror
             # Run the mirroring process
