@@ -5,6 +5,7 @@ kind: Job
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-29"
+    argocd.argoproj.io/hook: PreSync
   name: oc-mirror-{{ $cat }}
   namespace: {{ $.Values.namespace }}
 spec:
