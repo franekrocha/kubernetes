@@ -37,7 +37,7 @@ spec:
             # Run the mirroring process
             ./oc-mirror --config=/tmp/config/imagesetconfiguration.yaml docker://{{ $.Values.privateRegistry }} --dest-skip-tls=true
             # Tag the index image
-            skopeo copy docker://{{ $.Values.privateRegistry }}/redhat/{{ $catval.catalog }} docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}} --src-tls-verify=false --dest-tls-verify=false
+            skopeo copy docker://{{ $.Values.privateRegistry }}/redhat/{{ $catval.catalog }}:{{ $.Values.version }} docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}} --src-tls-verify=false --dest-tls-verify=false
         volumeMounts:
         - name: imageset-config
           mountPath: /tmp/config
