@@ -51,7 +51,7 @@ catalogs:
 #        channel: stable
 #        version: 1.47.1-5
 
-  oadp-v1-2-2:
+  oadp-v1-3-0:
     catalog: redhat-operator-index
     packages:
       redhat-oadp-operator:
