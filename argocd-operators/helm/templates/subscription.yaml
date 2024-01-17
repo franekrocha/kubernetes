@@ -1,7 +1,7 @@
 {{- $wave := -24 }}
 {{- range $cat, $catval := $.Values.catalogs }}
 {{- range $pac, $pacval := $catval.packages }}
-{{- $counter = add $counter 1 }}
+{{- $wave = add $wave 1 }}
 ---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
