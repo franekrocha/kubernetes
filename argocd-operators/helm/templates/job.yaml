@@ -8,11 +8,21 @@ metadata:
   name: oc-mirror-{{ $cat }}
   namespace: {{ $.Values.namespace }}
 spec:
+  backoffLimit: 0
   template:
     spec:
       containers:
       - name: container
         image: {{ $.Values.jobImage }}
+        env:
+          - name: HTTP_PROXY
+            value: {{ $.Values.httpProxy }}
+          - name: HTTPS_PROXY
+            value: {{ $.Values.httpsProxy }}
+          - name: NO_PROXY
+            value: {{ $.Values.noProxy }}
+          - name: DOCKER_CONFIG
+            value: /tmp/docker/
         command:
           - "/bin/sh"
           - "-c"
@@ -24,13 +34,13 @@ spec:
             chmod +x oc-mirror
             # Run the mirroring process
             ./oc-mirror --config=/tmp/config/imagesetconfiguration.yaml docker://{{ $.Values.privateRegistry }} --dest-skip-tls=true
-            # Rename the index image
-            skopeo copy docker://{{ $.Values.privateRegistry }}/redhat/{{ $catval.catalog }} docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}} --tls-verify=false
+            # Tag the index image
+            skopeo copy docker://{{ $.Values.privateRegistry }}/redhat/{{ $catval.catalog }} docker://{{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version}} --dest-tls-verify=false
         volumeMounts:
         - name: imageset-config
           mountPath: /tmp/config
         - name: docker-config
-          mountPath: /root/.docker/
+          mountPath: /tmp/docker/
       restartPolicy: Never
       volumes:
       - name: imageset-config

@@ -3,13 +3,18 @@ version: v4.14
 namespace: oc-mirror
 catalogNamespace: openshift-marketplace
 
-# Job image
+# Job
 jobImage: registry.redhat.io/ubi9/skopeo:9.3-5
 ocMirror: https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/oc-mirror.tar.gz
 
 # Registries
 redhatRegistry: registry.redhat.io/redhat
 privateRegistry: registry-quay-quay.apps.gitops.sandbox1568.opentlc.com/operators/v4.14
+
+# Proxy
+httpProxy: ""
+httpsProxy: ""
+noProxy: ""
 
 # Custom catalogs
 catalogs:
