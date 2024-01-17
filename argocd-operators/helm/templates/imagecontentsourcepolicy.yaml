@@ -1,0 +1,11 @@
+apiVersion: operator.openshift.io/v1alpha1
+kind: ImageContentSourcePolicy
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-28"
+  name: demo
+spec:
+  repositoryDigestMirrors:
+    - mirrors:
+        - {{ $.Values.privateRegistry }}
+      source: registry.redhat.io
