@@ -59,18 +59,18 @@ catalogs:
         channel: stable-1.3
         version: 1.3.0
 
-  quay-v3-10-2:
-    catalog: redhat-operator-index
-    packages:
-      quay-operator:
-        namespace: openshift-operators
-        channel: stable-3.10
-        version: 3.10.2
+#  quay-v3-10-2:
+#    catalog: redhat-operator-index
+#    packages:
+#      quay-operator:
+#        namespace: openshift-operators
+#        channel: stable-3.10
+#        version: 3.10.2
 
-  gitops-v1-11-0:
-    catalog: redhat-operator-index
-    packages:
-      quay-operator:
-        namespace: openshift-operators
-        channel: latest
-        version: 1.11.0
+#  gitops-v1-11-0:
+#    catalog: redhat-operator-index
+#    packages:
+#      quay-operator:
+#        namespace: openshift-operators
+#        channel: latest
+#        version: 1.11.0
