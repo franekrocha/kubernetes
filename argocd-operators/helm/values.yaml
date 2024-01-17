@@ -19,37 +19,37 @@ noProxy: ""
 # Custom catalogs
 catalogs:
 
-  servicemesh-v2-2-3:
-    catalog: redhat-operator-index
-    packages:
-      servicemeshoperator:
-        namespace: openshift-operators
-        channel: stable
-        version: 2.2.3-0
-      kiali-ossm:
-        namespace: openshift-operators
-        channel: stable
-        version: 1.57.7
-      jaeger-product:
-        namespace: openshift-operators
-        channel: stable
-        version: 1.34.1-5
-
-  # servicemesh-v2-4-4:
+  # servicemesh-v2-2-3:
   #   catalog: redhat-operator-index
   #   packages:
   #     servicemeshoperator:
   #       namespace: openshift-operators
   #       channel: stable
-  #       version: 2.4.4-0
+  #       version: 2.2.3-0
   #     kiali-ossm:
   #       namespace: openshift-operators
   #       channel: stable
-  #       version: 1.65.10
+  #       version: 1.57.7
   #     jaeger-product:
   #       namespace: openshift-operators
   #       channel: stable
-  #       version: 1.47.1-5
+  #       version: 1.34.1-5
+
+  servicemesh-v2-4-4:
+    catalog: redhat-operator-index
+    packages:
+      servicemeshoperator:
+        namespace: openshift-operators
+        channel: stable
+        version: 2.4.4-0
+      kiali-ossm:
+        namespace: openshift-operators
+        channel: stable
+        version: 1.65.10
+      jaeger-product:
+        namespace: openshift-operators
+        channel: stable
+        version: 1.47.1-5
 
   # oadp-v1-3-0:
   #   catalog: redhat-operator-index
