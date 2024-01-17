@@ -13,7 +13,7 @@ data:
     apiVersion: mirror.openshift.io/v1alpha2
     mirror:
       operators:
-      - catalog: {{ $.Values.redhatRegistry }}/{{ $catval.catalog }}
+      - catalog: {{ $.Values.redhatRegistry }}/{{ $catval.catalog }}:{{ $.Values.version }}
         packages:
         {{- range $pac, $pacval := $catval.packages }}
         - name: {{ $pac }}

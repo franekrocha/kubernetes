@@ -52,6 +52,7 @@ catalogs:
 #        version: 1.47.1-5
 
   oadp-v1-2-2:
+    catalog: redhat-operator-index
     packages:
       redhat-oadp-operator:
         namespace: openshift-operators
