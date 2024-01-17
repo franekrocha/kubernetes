@@ -8,6 +8,6 @@ metadata:
   name: {{ $cat }}
   namespace: {{ $.Values.catalogNamespace }}
 spec:
-  image: {{ $.Values.registry }}/registry.redhat.io/redhat/{{ $cat }}:{{ $.Values.version }}
+  image: {{ $.Values.privateRegistry }}/redhat/{{ $cat }}:{{ $.Values.version }}
   sourceType: grpc
 {{- end }}
