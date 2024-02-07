@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: applications
+spec:
+  destination:
+    namespace: applications
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: module-servicemesh/ocp3-01-dev
+    repoURL: 'https://github.com'
+    targetRevision: master

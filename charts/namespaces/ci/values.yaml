@@ -1,0 +1,6 @@
+namespaces:
+  example:
+    displayName: Example
+    description: This is an example namespace
+    labels:
+      namespace: example

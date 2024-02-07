@@ -1,0 +1,11 @@
+{{- range $namespace, $metadata := .Values.namespaces }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $namespace }}
+  annotations:
+    openshift.io/description: {{ $metadata.description }}
+    openshift.io/display-name: {{ $metadata.displayName }}
+  labels:
+{{ toYaml $metadata.labels | indent 4 }}
+{{- end }}
