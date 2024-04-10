@@ -7,6 +7,7 @@ metadata:
   name: postsync-job
   namespace: default
 spec:
+  backoffLimit: 0
   template:
     metadata:
       name: postsync-job
