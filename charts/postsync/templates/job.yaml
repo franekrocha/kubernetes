@@ -5,6 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: PostSync
   name: postsync-job
+  namespace: default
 spec:
   template:
     metadata:
