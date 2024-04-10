@@ -1,0 +1,17 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+  name: postsync-job
+spec:
+  template:
+    metadata:
+      name: postsync-job
+    spec:
+      containers:
+      - name: postsync-job-container
+        image: busybox
+        command: ["ls", "/nonexistent_directory"]
+      restartPolicy: Never
