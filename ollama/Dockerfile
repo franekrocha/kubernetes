@@ -1,3 +1,4 @@
 FROM ollama/ollama:latest
 
-RUN ollama serve && ollama pull deepseek-r1:7b-qwen-distill-q4_K_M
+# Start the ollama service in the background and download the model
+RUN ollama serve --detach && ollama pull deepseek-r1:7b-qwen-distill-q4_K_M
